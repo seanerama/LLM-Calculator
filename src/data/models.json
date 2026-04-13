@@ -1,0 +1,47 @@
+[
+  { "name": "Llama 3.2 1B", "aliases": ["llama-3.2-1b", "llama3.2:1b"], "params": 1.24, "numLayers": 16, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 2048, "maxContext": 131072, "isMoE": false },
+  { "name": "Llama 3.2 3B", "aliases": ["llama-3.2-3b", "llama3.2:3b"], "params": 3.21, "numLayers": 28, "numAttentionHeads": 24, "numKVHeads": 8, "hiddenSize": 3072, "maxContext": 131072, "isMoE": false },
+  { "name": "Llama 3.1 8B", "aliases": ["llama-3.1-8b", "llama3.1:8b", "llama-3-8b", "llama3:8b"], "params": 8.03, "numLayers": 32, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 4096, "maxContext": 131072, "isMoE": false },
+  { "name": "Llama 3.3 70B", "aliases": ["llama-3.3-70b", "llama3.3:70b", "llama-3.1-70b", "llama3.1:70b"], "params": 70.6, "numLayers": 80, "numAttentionHeads": 64, "numKVHeads": 8, "hiddenSize": 8192, "maxContext": 131072, "isMoE": false },
+  { "name": "Llama 3.1 405B", "aliases": ["llama-3.1-405b", "llama3.1:405b"], "params": 405.0, "numLayers": 126, "numAttentionHeads": 128, "numKVHeads": 8, "hiddenSize": 16384, "maxContext": 131072, "isMoE": false },
+
+  { "name": "Mistral 7B", "aliases": ["mistral-7b", "mistral:7b"], "params": 7.24, "numLayers": 32, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 4096, "maxContext": 32768, "isMoE": false },
+  { "name": "Mixtral 8x7B", "aliases": ["mixtral-8x7b", "mixtral:8x7b"], "params": 46.7, "numLayers": 32, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 4096, "maxContext": 32768, "isMoE": true, "activeParams": 12.9 },
+  { "name": "Mixtral 8x22B", "aliases": ["mixtral-8x22b", "mixtral:8x22b"], "params": 141.0, "numLayers": 56, "numAttentionHeads": 48, "numKVHeads": 8, "hiddenSize": 6144, "maxContext": 65536, "isMoE": true, "activeParams": 39.1 },
+
+  { "name": "Qwen 2.5 0.5B", "aliases": ["qwen2.5:0.5b", "qwen-2.5-0.5b"], "params": 0.49, "numLayers": 24, "numAttentionHeads": 14, "numKVHeads": 2, "hiddenSize": 896, "maxContext": 32768, "isMoE": false },
+  { "name": "Qwen 2.5 1.5B", "aliases": ["qwen2.5:1.5b", "qwen-2.5-1.5b"], "params": 1.54, "numLayers": 28, "numAttentionHeads": 12, "numKVHeads": 2, "hiddenSize": 1536, "maxContext": 32768, "isMoE": false },
+  { "name": "Qwen 2.5 3B", "aliases": ["qwen2.5:3b", "qwen-2.5-3b"], "params": 3.09, "numLayers": 36, "numAttentionHeads": 16, "numKVHeads": 2, "hiddenSize": 2048, "maxContext": 32768, "isMoE": false },
+  { "name": "Qwen 2.5 7B", "aliases": ["qwen2.5:7b", "qwen-2.5-7b", "qwen3:8b"], "params": 7.62, "numLayers": 28, "numAttentionHeads": 28, "numKVHeads": 4, "hiddenSize": 3584, "maxContext": 131072, "isMoE": false },
+  { "name": "Qwen 2.5 14B", "aliases": ["qwen2.5:14b", "qwen-2.5-14b"], "params": 14.77, "numLayers": 48, "numAttentionHeads": 40, "numKVHeads": 8, "hiddenSize": 5120, "maxContext": 131072, "isMoE": false },
+  { "name": "Qwen 2.5 32B", "aliases": ["qwen2.5:32b", "qwen-2.5-32b"], "params": 32.76, "numLayers": 64, "numAttentionHeads": 40, "numKVHeads": 8, "hiddenSize": 5120, "maxContext": 131072, "isMoE": false },
+  { "name": "Qwen 2.5 72B", "aliases": ["qwen2.5:72b", "qwen-2.5-72b"], "params": 72.71, "numLayers": 80, "numAttentionHeads": 64, "numKVHeads": 8, "hiddenSize": 8192, "maxContext": 131072, "isMoE": false },
+
+  { "name": "Gemma 2 2B", "aliases": ["gemma2:2b", "gemma-2-2b"], "params": 2.61, "numLayers": 26, "numAttentionHeads": 8, "numKVHeads": 4, "hiddenSize": 2304, "maxContext": 8192, "isMoE": false },
+  { "name": "Gemma 2 9B", "aliases": ["gemma2:9b", "gemma-2-9b"], "params": 9.24, "numLayers": 42, "numAttentionHeads": 16, "numKVHeads": 8, "hiddenSize": 3584, "maxContext": 8192, "isMoE": false },
+  { "name": "Gemma 2 27B", "aliases": ["gemma2:27b", "gemma-2-27b"], "params": 27.23, "numLayers": 46, "numAttentionHeads": 32, "numKVHeads": 16, "hiddenSize": 4608, "maxContext": 8192, "isMoE": false },
+  { "name": "Gemma 3 1B", "aliases": ["gemma3:1b", "gemma-3-1b"], "params": 1.0, "numLayers": 18, "numAttentionHeads": 8, "numKVHeads": 4, "hiddenSize": 1152, "maxContext": 32768, "isMoE": false },
+  { "name": "Gemma 3 4B", "aliases": ["gemma3:4b", "gemma-3-4b"], "params": 4.3, "numLayers": 34, "numAttentionHeads": 16, "numKVHeads": 8, "hiddenSize": 2560, "maxContext": 131072, "isMoE": false },
+  { "name": "Gemma 3 12B", "aliases": ["gemma3:12b", "gemma-3-12b"], "params": 12.2, "numLayers": 48, "numAttentionHeads": 16, "numKVHeads": 8, "hiddenSize": 3840, "maxContext": 131072, "isMoE": false },
+  { "name": "Gemma 3 27B", "aliases": ["gemma3:27b", "gemma-3-27b"], "params": 27.4, "numLayers": 62, "numAttentionHeads": 32, "numKVHeads": 16, "hiddenSize": 4608, "maxContext": 131072, "isMoE": false },
+
+  { "name": "DeepSeek R1 1.5B", "aliases": ["deepseek-r1:1.5b"], "params": 1.78, "numLayers": 28, "numAttentionHeads": 16, "numKVHeads": 16, "hiddenSize": 1536, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 7B", "aliases": ["deepseek-r1:7b"], "params": 7.62, "numLayers": 28, "numAttentionHeads": 28, "numKVHeads": 4, "hiddenSize": 3584, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 8B", "aliases": ["deepseek-r1:8b"], "params": 8.03, "numLayers": 32, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 4096, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 14B", "aliases": ["deepseek-r1:14b"], "params": 14.77, "numLayers": 48, "numAttentionHeads": 40, "numKVHeads": 8, "hiddenSize": 5120, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 32B", "aliases": ["deepseek-r1:32b"], "params": 32.76, "numLayers": 64, "numAttentionHeads": 40, "numKVHeads": 8, "hiddenSize": 5120, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 70B", "aliases": ["deepseek-r1:70b"], "params": 70.6, "numLayers": 80, "numAttentionHeads": 64, "numKVHeads": 8, "hiddenSize": 8192, "maxContext": 131072, "isMoE": false },
+  { "name": "DeepSeek R1 671B", "aliases": ["deepseek-r1:671b", "deepseek-r1"], "params": 671.0, "numLayers": 61, "numAttentionHeads": 128, "numKVHeads": 128, "hiddenSize": 7168, "maxContext": 131072, "isMoE": true, "activeParams": 37.0 },
+  { "name": "DeepSeek V3 685B", "aliases": ["deepseek-v3", "deepseek-v3:685b"], "params": 685.0, "numLayers": 61, "numAttentionHeads": 128, "numKVHeads": 128, "hiddenSize": 7168, "maxContext": 131072, "isMoE": true, "activeParams": 37.0 },
+
+  { "name": "Phi-3 Mini 3.8B", "aliases": ["phi3:mini", "phi-3-mini", "phi3:3.8b"], "params": 3.82, "numLayers": 32, "numAttentionHeads": 32, "numKVHeads": 32, "hiddenSize": 3072, "maxContext": 131072, "isMoE": false },
+  { "name": "Phi-3 Medium 14B", "aliases": ["phi3:medium", "phi-3-medium", "phi3:14b"], "params": 14.0, "numLayers": 40, "numAttentionHeads": 40, "numKVHeads": 10, "hiddenSize": 5120, "maxContext": 131072, "isMoE": false },
+  { "name": "Phi-4 14B", "aliases": ["phi4:14b", "phi-4"], "params": 14.66, "numLayers": 40, "numAttentionHeads": 40, "numKVHeads": 10, "hiddenSize": 5120, "maxContext": 16384, "isMoE": false },
+
+  { "name": "Command R 35B", "aliases": ["command-r:35b", "command-r"], "params": 35.0, "numLayers": 40, "numAttentionHeads": 32, "numKVHeads": 8, "hiddenSize": 8192, "maxContext": 131072, "isMoE": false },
+  { "name": "Command R+ 104B", "aliases": ["command-r-plus:104b", "command-r-plus"], "params": 104.0, "numLayers": 64, "numAttentionHeads": 48, "numKVHeads": 8, "hiddenSize": 12288, "maxContext": 131072, "isMoE": false },
+
+  { "name": "Falcon 7B", "aliases": ["falcon:7b", "falcon-7b"], "params": 7.24, "numLayers": 32, "numAttentionHeads": 71, "numKVHeads": 1, "hiddenSize": 4544, "maxContext": 2048, "isMoE": false },
+  { "name": "Falcon 40B", "aliases": ["falcon:40b", "falcon-40b"], "params": 40.0, "numLayers": 60, "numAttentionHeads": 128, "numKVHeads": 8, "hiddenSize": 8192, "maxContext": 2048, "isMoE": false },
+  { "name": "Falcon 180B", "aliases": ["falcon:180b", "falcon-180b"], "params": 180.0, "numLayers": 80, "numAttentionHeads": 232, "numKVHeads": 8, "hiddenSize": 14848, "maxContext": 2048, "isMoE": false }
+]
