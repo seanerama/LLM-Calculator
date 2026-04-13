@@ -84,22 +84,69 @@ export async function fetchFromHuggingFace(
 ): Promise<ModelConfig> {
   const configBranch = branch ?? 'main';
   const configUrl = `https://huggingface.co/${org}/${model}/resolve/${configBranch}/config.json`;
+  const modelApiUrl = `https://huggingface.co/api/models/${org}/${model}`;
 
-  const response = await fetch(`/api/proxy?url=${encodeURIComponent(configUrl)}`);
+  // Fetch both config.json and model API in parallel
+  const [configResponse, modelApiResponse] = await Promise.all([
+    fetch(`/api/proxy?url=${encodeURIComponent(configUrl)}`).catch(() => null),
+    fetch(`/api/proxy?url=${encodeURIComponent(modelApiUrl)}`).catch(() => null),
+  ]);
 
-  if (!response.ok) {
-    // Try bundled lookup as fallback
+  // Extract param count from model API (safetensors.total or safetensors.parameters)
+  let apiParams = 0;
+  if (modelApiResponse?.ok) {
+    try {
+      const apiData = await modelApiResponse.json();
+      const safetensors = apiData.safetensors as Record<string, unknown> | undefined;
+      if (safetensors) {
+        if (typeof safetensors.total === 'number') {
+          apiParams = safetensors.total / 1e9;
+        } else if (safetensors.parameters && typeof safetensors.parameters === 'object') {
+          // Sum all parameter counts across dtypes
+          const params = safetensors.parameters as Record<string, number>;
+          const total = Object.values(params).reduce((sum, v) => sum + (typeof v === 'number' ? v : 0), 0);
+          if (total > 0) apiParams = total / 1e9;
+        }
+      }
+    } catch {
+      // Ignore API parse errors
+    }
+  }
+
+  if (!configResponse?.ok) {
+    // No config.json — fall back to lookup table
     const fallback = lookupModel(`${org}/${model}`) ?? lookupModel(model);
     if (fallback) {
       fallback.source = 'huggingface';
       fallback.name = `${org}/${model}`;
+      if (apiParams > 0) fallback.totalParams = apiParams;
       return fallback;
     }
-    throw new Error(`Failed to fetch config.json for ${org}/${model} (HTTP ${response.status})`);
+    throw new Error(`Failed to fetch config.json for ${org}/${model}. Try manual entry.`);
   }
 
-  const config = await response.json();
-  return parseHuggingFaceConfig(config, `${org}/${model}`);
+  const config = await configResponse.json();
+  const result = parseHuggingFaceConfig(config, `${org}/${model}`);
+
+  // Use API param count if config didn't have one
+  if (result.totalParams === 0 && apiParams > 0) {
+    result.totalParams = apiParams;
+  }
+
+  // Fill any remaining zeros from lookup table
+  if (result.totalParams === 0 || result.numLayers === 0 || result.numAttentionHeads === 0) {
+    const lookup = lookupModel(`${org}/${model}`) ?? lookupModel(model);
+    if (lookup) {
+      if (result.totalParams === 0) result.totalParams = lookup.totalParams;
+      if (result.numLayers === 0) result.numLayers = lookup.numLayers;
+      if (result.numAttentionHeads === 0) result.numAttentionHeads = lookup.numAttentionHeads;
+      if (result.numKVHeads === 0) result.numKVHeads = lookup.numKVHeads;
+      if (result.hiddenSize === 0) result.hiddenSize = lookup.hiddenSize;
+      if (result.maxContext === 0) result.maxContext = lookup.maxContext;
+    }
+  }
+
+  return result;
 }
 
 function parseHuggingFaceConfig(config: Record<string, unknown>, name: string): ModelConfig {

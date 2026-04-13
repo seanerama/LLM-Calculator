@@ -128,17 +128,24 @@ export function HardwareProfile({ hardware, onHardwareChange }: HardwareProfileP
             />
           </div>
 
-          {/* Number of GPUs */}
+          {/* Number of GPUs / Systems */}
           <div>
-            <label className="block text-text-secondary text-[0.8125rem] mb-1">Number of GPUs</label>
+            <label className="block text-text-secondary text-[0.8125rem] mb-1">
+              Number of GPUs / Systems in Parallel
+            </label>
             <input
               type="number"
               value={hardware.gpuCount}
-              onChange={(e) => update({ gpuCount: Math.max(1, Math.min(8, parseInt(e.target.value) || 1)) })}
+              onChange={(e) => update({ gpuCount: Math.max(1, Math.min(64, parseInt(e.target.value) || 1)) })}
               min={1}
-              max={8}
+              max={64}
               className="w-full h-10 px-3 bg-bg-tertiary border border-border-default rounded-lg text-text-primary font-mono text-[0.8125rem] focus:outline-none focus:border-border-focus focus:ring-3 focus:ring-border-focus/20"
             />
+            {hardware.gpuCount > 1 && (
+              <p className="mt-1 text-text-muted text-[0.75rem]">
+                Total VRAM: {(hardware.vram * hardware.gpuCount).toLocaleString()} GB across {hardware.gpuCount} units
+              </p>
+            )}
           </div>
         </>
       )}

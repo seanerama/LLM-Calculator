@@ -64,6 +64,9 @@ export function calcKVCache(
   seqLen: number,
   kvPrecision: number = 2, // bytes per element: 2 for FP16, 1 for Q8
 ): number {
+  if (config.numAttentionHeads === 0 || config.numKVHeads === 0 || config.numLayers === 0) {
+    return 0;
+  }
   const headDim = config.hiddenSize / config.numAttentionHeads;
   return (
     (2 * config.numLayers * config.numKVHeads * headDim * seqLen * kvPrecision) /
