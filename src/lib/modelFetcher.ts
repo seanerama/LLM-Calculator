@@ -150,20 +150,35 @@ export async function fetchFromHuggingFace(
 }
 
 function parseHuggingFaceConfig(config: Record<string, unknown>, name: string): ModelConfig {
-  const hiddenSize = (config.hidden_size as number) ?? 0;
-  const numAttentionHeads = (config.num_attention_heads as number) ?? 0;
-  const numKVHeads = (config.num_key_value_heads as number) ?? numAttentionHeads;
-  const numLayers = (config.num_hidden_layers as number) ?? 0;
-  const maxContext = (config.max_position_embeddings as number) ?? 0;
-  const dtype = (config.torch_dtype as string) ?? 'unknown';
+  // Multimodal models (VLMs) nest the language model config under text_config,
+  // language_config, or llm_config. Merge the nested config so we read from it.
+  const textConfig = (
+    config.text_config ?? config.language_config ?? config.llm_config ?? {}
+  ) as Record<string, unknown>;
+
+  // Read from top-level first, fall back to nested text config
+  const readNum = (key: string): number =>
+    (typeof config[key] === 'number' ? config[key] as number : null)
+    ?? (typeof textConfig[key] === 'number' ? textConfig[key] as number : null)
+    ?? 0;
+
+  const readStr = (key: string): string =>
+    (typeof config[key] === 'string' ? config[key] as string : null)
+    ?? (typeof textConfig[key] === 'string' ? textConfig[key] as string : null)
+    ?? '';
+
+  const hiddenSize = readNum('hidden_size');
+  const numAttentionHeads = readNum('num_attention_heads');
+  const numKVHeads = readNum('num_key_value_heads') || numAttentionHeads;
+  const numLayers = readNum('num_hidden_layers');
+  const maxContext = readNum('max_position_embeddings');
+  const dtype = readStr('torch_dtype') || 'unknown';
   const architecture = Array.isArray(config.architectures)
     ? (config.architectures[0] as string)
     : 'Unknown';
-  const modelType = (config.model_type as string) ?? '';
 
-  // Estimate total params from architecture if not provided
-  // This is a rough fallback — most models expose this in their model card
-  const numExperts = (config.num_local_experts as number) ?? 0;
+  // MoE detection — check both levels
+  const numExperts = readNum('num_local_experts');
   const isMoE = numExperts > 1;
 
   // Try to get param count from various config locations
@@ -192,9 +207,7 @@ function parseHuggingFaceConfig(config: Record<string, unknown>, name: string): 
     dtype,
     architecture,
     isMoE,
-    activeParams: isMoE && config.num_experts_per_tok
-      ? undefined // Would need more info to compute
-      : undefined,
+    activeParams: undefined,
   };
 }
 
